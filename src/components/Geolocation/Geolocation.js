@@ -2,7 +2,7 @@ import React from 'react';
 import './Geolocation.css';
 import WeatherData from '../WeatherData/WeatherData'
 import { connect } from "react-redux";
-import { setCoords, fetchGeolocationError } from '../../actions/geolocationAction';
+import { setCoords, fetchGeolocationError, setLoadingTrue } from '../../actions/geolocationAction';
 import { fetchWeatherByCoords } from '../../actions/fetchWeatherByCoords';
 import Header from '../Header/Header'
 import Loader from '../Loader/Loader'
@@ -17,7 +17,8 @@ class Geolocation extends React.Component {
     return (
       <div>
         <Header updateGeolocation = {this.getGeolocation.bind(this)}/>
-        {weatherBlock}
+        {!this.props.isLoading && weatherBlock}
+        {this.props.isLoading && <Loader/>}
       </div>
     );
   }
@@ -25,6 +26,7 @@ class Geolocation extends React.Component {
   getGeolocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
+        this.props.setLoadingTrue();
         this.props.setCoords({lat: position.coords.latitude, lon: position.coords.longitude});
         this.props.fetchWeatherByCoords(this.props.coords);
       },
@@ -57,7 +59,8 @@ function mapStateToProps(state) {
 return {
   coords: state.geolocation.coords,
   forecast: state.geolocation.forecast,
-  error: state.geolocation.error
+  error: state.geolocation.error,
+  isLoading: state.geolocation.isLoading
 };
 }
 
@@ -69,6 +72,10 @@ return {
 
   fetchWeatherByCoords: (coords) => {
     dispatch(fetchWeatherByCoords(coords));
+  },
+
+  setLoadingTrue: () => {
+    dispatch(setLoadingTrue());
   },
 
   fetchGeolocationError: (error) => {

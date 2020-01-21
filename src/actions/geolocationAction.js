@@ -18,3 +18,10 @@ export function fetchGeolocationError(error) {
     payload: error
   }
 }
+
+export function setLoadingTrue() {
+  return {
+    type: 'SET_LOADING_TRUE',
+    payload: true
+  }
+}

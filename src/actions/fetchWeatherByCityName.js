@@ -2,7 +2,7 @@ import { fetchAddedCitiesSuccess, fetchAddedCitiesError } from './addedCitiesAct
 
 export function fetchWeatherByCityName(cityName) {
  return function(dispatch) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=e972dcd233bab1ebce419c370711921f&units=metric&lang=en`)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=665c8e98e586f364800fd238b845d042&units=metric&lang=en`)
       .then(response => {
         response.json()
           .then(json => {
