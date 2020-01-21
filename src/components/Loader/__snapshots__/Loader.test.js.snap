@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loader displayed correctly 1`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="loader-circle"
+  />
+  <div
+    className="loader-bottom"
+  >
+    Please wait, weather is loading...
+  </div>
+</div>
+`;
